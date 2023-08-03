@@ -36,6 +36,27 @@ export const renderModal = ( element ) => {
     form.addEventListener('submit', (event) => {
         //para evitar el POST
         event.preventDefault();
+
+        const formData = new FormData( form );
+        const userLike = {};
+
+        //for (const iterator of formData) {
+        for (const [key, value] of formData) {
+            
+            if ( key === 'balance') {
+                //data[key] = Number(value);
+                userLike[key] = +value;
+                continue; //se va al siguiente registro del for
+            }
+
+            if ( key === 'isActive') {
+                userLike[key] = ( value === 'on') ? true: false;
+                continue
+            }
+
+            userLike[key] = value;
+
+        }
     });
 
     element.append( modal );
