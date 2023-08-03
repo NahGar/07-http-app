@@ -1,0 +1,12 @@
+
+button {
+    margin: 4px;
+    
+}
+
+#current-page {
+    font-size: 1.3rem;
+    color: white !important;
+    margin-left: 3px;
+    margin-right: 3px;
+}
