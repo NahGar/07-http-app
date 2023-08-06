@@ -53,6 +53,7 @@ export const renderModal = ( element, callback ) => {
     modal.className = 'modal-container hide-modal';
 
     form = modal.querySelector('form');
+    //form.querySelector('[name="isActive"]').checked = true;
 
     modal.addEventListener('click', (event) => {
         
@@ -68,6 +69,7 @@ export const renderModal = ( element, callback ) => {
         const formData = new FormData( form );
         const userLike = { ...loadedUser };
 
+        userLike['isActive'] = false;
         //for (const iterator of formData) {
         for (const [key, value] of formData) {
             
@@ -78,7 +80,8 @@ export const renderModal = ( element, callback ) => {
             }
 
             if ( key === 'isActive') {
-                userLike[key] = ( value === 'on') ? true: false;
+                //userLike[key] = ( value === 'on') ? true: false;
+                userLike[key] = true;
                 continue
             }
 

@@ -38,7 +38,7 @@ const loadFirstPage = async() => {
 
 const loadLastPage = async() => {
 
-    if(state.countPages === 0) {
+    //if(state.countPages === 0) {
         let lastPage = 1;
         let continuar = true;
         do {
@@ -52,7 +52,7 @@ const loadLastPage = async() => {
             }
         } while( continuar )
         state.countPages = lastPage;
-    }
+    //}
     
     const users = await loadUsersByPage( state.countPages );
     
@@ -60,13 +60,35 @@ const loadLastPage = async() => {
     state.users = users;
 }
 
+/**
+ * 
+ * @param {User} user 
+ */
+const onUserChanged = ( updatedUser ) => {
 
-const onUserChanged = () => {
+    let wasFound = false;
 
+    //state.users son los cargados
+    state.users = state.users.map( user => {
+        if( user.id === updatedUser.id) {
+            wasFound = true;
+            return updatedUser;
+        }
+        return user;
+    });
+
+    if ( state.users.length < 10 && !wasFound ) {
+        state.users.push( updatedUser );
+    }
 }
 
 const reloadPage = async () => {
-
+    const users = await loadUsersByPage( state.currentPage );
+    //si no hay registros carga página anterior
+    if( users.length === 0 ) {
+        await loadPreviousPage();
+    }
+    //state.users = users;
 }
 
 export default {
